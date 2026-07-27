@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MarketPulse — Дашборд аналитики маркетплейсов</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- ========== Sidebar ========== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1>MarketPulse</h1>
+      <span>Аналитика маркетплейсов</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" data-tab="overview">
+        <span class="icon">📊</span>
+        <span>Обзор</span>
+      </div>
+      <div class="nav-item" data-tab="products">
+        <span class="icon">📦</span>
+        <span>Товары</span>
+      </div>
+      <div class="nav-item" data-tab="analytics">
+        <span class="icon">📈</span>
+        <span>Аналитика</span>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      MarketPulse v1.0 &mdash; Демо-дашборд
+    </div>
+  </aside>
+
+  <!-- ========== Main ========== -->
+  <div class="main">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-title">
+        <h2 id="pageTitle">Обзор</h2>
+        <p id="pageSubtitle">Сводная статистика по всем товарам и маркетплейсам</p>
+      </div>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" title="Переключить тему">🌙</button>
+      </div>
+    </header>
+
+    <!-- Filters -->
+    <div class="filters" id="filters">
+      <div class="filter-group">
+        <label>Маркетплейс</label>
+        <select id="filterMarketplace">
+          <option value="all">Все</option>
+          <option value="Wildberries">Wildberries</option>
+          <option value="Ozon">Ozon</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Категория</label>
+        <select id="filterCategory">
+          <option value="all">Все категории</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Дата от</label>
+        <input type="date" id="filterDateFrom">
+      </div>
+      <div class="filter-group">
+        <label>Дата до</label>
+        <input type="date" id="filterDateTo">
+      </div>
+      <button class="filter-reset" id="filterReset">Сбросить</button>
+    </div>
+
+    <!-- ========== Tab: Overview ========== -->
+    <div class="tab-content active" id="tab-overview">
+      <div class="metrics" id="metricsContainer">
+        <div class="metric-card"><div class="label">Всего товаров</div><div class="value" id="mTotal">—</div><div class="change" id="mTotalChange"></div></div>
+        <div class="metric-card"><div class="label">Средняя цена</div><div class="value" id="mAvgPrice">—</div><div class="change" id="mAvgPriceChange"></div></div>
+        <div class="metric-card"><div class="label">Мин. цена на WB</div><div class="value" id="mMinPrice">—</div><div class="change up" id="mMinPriceChange"></div></div>
+        <div class="metric-card"><div class="label">Средний рейтинг</div><div class="value" id="mRating">—</div><div class="change" id="mRatingChange"></div></div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card full">
+          <h3>Динамика средних цен</h3>
+          <div class="chart-container">
+            <canvas id="priceTrendChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>Топ-10 товаров по продажам</h3>
+          <div class="chart-container">
+            <canvas id="topSalesChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>Распределение по категориям</h3>
+          <div class="chart-container">
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== Tab: Products ========== -->
+    <div class="tab-content" id="tab-products">
+      <div class="table-wrapper">
+        <div class="table-header">
+          <h3>Каталог товаров</h3>
+          <input type="text" class="table-search" id="tableSearch" placeholder="Поиск по названию или артикулу...">
+        </div>
+        <div class="table-container">
+          <table>
+            <thead id="tableHead"></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+        <div class="table-footer">
+          <span id="tableInfo">Показано: 0 из 0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== Tab: Analytics ========== -->
+    <div class="tab-content" id="tab-analytics">
+      <div class="analytics-grid">
+        <div class="chart-card">
+          <h3>Средние цены по категориям</h3>
+          <div class="chart-container">
+            <canvas id="categoryPriceChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>Цена vs Продажи</h3>
+          <div class="chart-container">
+            <canvas id="scatterChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="chart-card full">
+        <h3>Сравнение цен: Wildberries vs Ozon по категориям</h3>
+        <div class="chart-container">
+          <canvas id="comparisonChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
